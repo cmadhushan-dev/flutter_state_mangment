@@ -49,9 +49,9 @@ class _ListItemWidgetState extends State<ListItemWidget> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Icon(Icons.heart_broken_sharp),
+                  Icon(Icons.favorite_outline),
                   const SizedBox(width: 24),
-                  Icon(Icons.card_giftcard),
+                  Icon(Icons.shopping_cart_outlined),
                 ],
               ),
             ),

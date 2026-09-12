@@ -1,34 +1,54 @@
 import 'package:flutter_dp_provider_application/model/flutter_shop_model.dart';
 
 class FlutterShopData {
-static  List<FlutterShopModel> itemsList = [
+  final List<FlutterShopModel> itemsList = [
     FlutterShopModel(
-      itemName: "bread", 
-      itemPrice: 120.00, 
-      itemQunatity: 0),
-        FlutterShopModel(
-      itemName: "dhal", 
-      itemPrice: 130.00, 
-      itemQunatity: 0),
-        FlutterShopModel(
-      itemName: "Jam", 
-      itemPrice: 340.00, 
-      itemQunatity: 0),
-        FlutterShopModel(
-      itemName: "Astra", 
-      itemPrice: 249.00, 
-      itemQunatity: 0),  FlutterShopModel(
-      itemName: "Sadin", 
-      itemPrice: 340.00, 
-      itemQunatity: 0),  FlutterShopModel(
-      itemName: "Yellow Apple", 
-      itemPrice: 230.00, 
-      itemQunatity: 0),  FlutterShopModel(
-      itemName: "orange", 
-      itemPrice: 80.00, 
-      itemQunatity: 0),  FlutterShopModel(
-      itemName: "graps", 
-      itemPrice: 400.00, 
-      itemQunatity: 0),
+      id: "1",
+      itemName: "bread",
+      itemPrice: 120.00,
+      
+    ),
+    FlutterShopModel(
+      id: "2",
+      itemName: "dhal",
+      itemPrice: 130.00,
+    
+    ),
+    FlutterShopModel(
+      id: "3",
+      itemName: "Jam",
+      itemPrice: 340.00,
+    
+    ),
+    FlutterShopModel(
+      id: "3",
+      itemName: "Astra",
+      itemPrice: 249.00,
+      
+    ),
+    FlutterShopModel(
+      id: "4",
+      itemName: "Sadin",
+      itemPrice: 340.00,
+    
+    ),
+    FlutterShopModel(
+      id: "5",
+      itemName: "Yellow Apple",
+      itemPrice: 230.00,
+     
+    ),
+    FlutterShopModel(
+      id: "6",
+      itemName: "orange",
+      itemPrice: 80.00,
+   
+    ),
+    FlutterShopModel(
+      id: "7",
+      itemName: "graps",
+      itemPrice: 400.00,
+      
+    ),
   ];
 }
