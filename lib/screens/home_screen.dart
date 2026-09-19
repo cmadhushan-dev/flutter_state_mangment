@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dp_provider_application/data/flutter_shop_data.dart';
 import 'package:flutter_dp_provider_application/model/flutter_shop_model.dart';
+import 'package:flutter_dp_provider_application/provider/card_provider.dart';
 import 'package:flutter_dp_provider_application/screens/card_page.dart';
 import 'package:flutter_dp_provider_application/screens/favourite_page.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,29 +59,46 @@ class HomeScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
-              child: ListTile(
-                title: Row(
-                  children: [
-                    Text(
-                      productsItem.itemName,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+              child: Consumer<CardProvider>(
+                //value=provider class for widget
+                builder: (context, cardProviders, child) {
+                  return ListTile(
+                    title: Row(
+                      children: [
+                        Text(
+                          productsItem.itemName,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(width: 20),
+                        //to do:fill this
+                        Text(
+                          "${cardProviders.items[productsItem.id]?.itemQuanitiy ?? 0} ",
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 20),
-                    //to do:fill this
-                    Text("0"),
-                  ],
-                ),
-                subtitle: Text("\$ ${productsItem.itemPrice.toString()}"),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.favorite)),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.shopping_cart),
+                    subtitle: Text("\$ ${productsItem.itemPrice.toString()}"),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.favorite),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            //accses the value in the provider
+                            cardProviders.addItemsToCard(
+                              productsItem.id,
+                              productsItem.itemPrice,
+                              productsItem.itemName,
+                            );
+                          },
+                          icon: Icon(Icons.shopping_cart),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           );
