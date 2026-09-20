@@ -3,7 +3,7 @@ import 'package:flutter_dp_provider_application/model/card_model.dart';
 
 class CardProvider extends ChangeNotifier {
   //card item state
-  final Map<String, CardItem> _items = {};
+  Map<String, CardItem> _items = {};
 
   //getter the items
   Map<String, CardItem> get items {
@@ -66,5 +66,21 @@ class CardProvider extends ChangeNotifier {
       _items.remove(productid);
     }
     notifyListeners();
+  }
+
+  //method to claer all card items
+  void clearAll() {
+    _items = {};
+    notifyListeners();
+  }
+
+  //method to cal total
+  double get totalamount {
+    var total = 0.0;
+    _items.forEach((key, cardItems) {
+      total += cardItems.itemPrice * cardItems.itemQuanitiy;
+    });
+    notifyListeners();
+    return total;
   }
 }

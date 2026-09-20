@@ -56,6 +56,12 @@ class CardPage extends StatelessWidget {
                               onPressed: () {
                                 //remove the single item
                                 cardproviders.removeSingleitem(cardItem.id);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Text("one item removed"),
+                                  ),
+                                );
                               },
                               icon: const Icon(Icons.remove),
                             ),
@@ -63,6 +69,12 @@ class CardPage extends StatelessWidget {
                               onPressed: () {
                                 //remoev the whole item
                                 cardproviders.removeiItem(cardItem.id);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Text("Remove from cart"),
+                                  ),
+                                );
                               },
                               icon: const Icon(Icons.delete),
                             ),
@@ -71,6 +83,36 @@ class CardPage extends StatelessWidget {
                       ),
                     );
                   },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "total \$ ${cardproviders.totalamount.toStringAsFixed(2)}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    ElevatedButton(
+                      onPressed: () {
+                        cardproviders.clearAll();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            duration: Duration(seconds: 1),
+                            content: Text("Remove All CardItems"),
+                          ),
+                        );
+                      },
+                      child: Text("Clear All Cart Items"),
+                    ),
+                  ],
                 ),
               ),
             ],

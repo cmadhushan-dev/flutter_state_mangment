@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dp_provider_application/data/flutter_shop_data.dart';
 import 'package:flutter_dp_provider_application/model/flutter_shop_model.dart';
 import 'package:flutter_dp_provider_application/provider/card_provider.dart';
+import 'package:flutter_dp_provider_application/provider/favourite_provider.dart';
 import 'package:flutter_dp_provider_application/screens/card_page.dart';
 import 'package:flutter_dp_provider_application/screens/favourite_page.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<FlutterShopModel> prodcuts = FlutterShopData().itemsList;
+    final List<FlutterShopModel> prodcuts = FlutterShopData().products;
     return Scaffold(
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -59,9 +60,9 @@ class HomeScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
-              child: Consumer<CardProvider>(
+              child: Consumer2<CardProvider, FavouriteProvider>(
                 //value=provider class for widget
-                builder: (context, cardProviders, child) {
+                builder: (context, cardProviders, favouriteProvider, child) {
                   return ListTile(
                     title: Row(
                       children: [
@@ -81,9 +82,32 @@ class HomeScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.favorite),
+                          onPressed: () {
+                            favouriteProvider.toggleFavourites(productsItem.id);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    favouriteProvider.isfavourute(
+                                      productsItem.id,
+                                    )
+                                    ? Text("Added to favourite")
+                                    : Text("Remove from the favourite"),
+                                duration: Duration(seconds: 1),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            favouriteProvider.isfavourute(productsItem.id)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+
+                            color:
+                                favouriteProvider.isfavourute(productsItem.id)
+                                ? Colors.pinkAccent
+                                : Colors.grey,
+                          ),
                         ),
+
                         IconButton(
                           onPressed: () {
                             //accses the value in the provider
@@ -92,8 +116,20 @@ class HomeScreen extends StatelessWidget {
                               productsItem.itemPrice,
                               productsItem.itemName,
                             );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: Duration(seconds: 1),
+                                content: Text("Added to cart"),
+                              ),
+                            );
                           },
-                          icon: Icon(Icons.shopping_cart),
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            color:
+                                cardProviders.items.containsKey(productsItem.id)
+                                ? Colors.orangeAccent
+                                : Colors.grey,
+                          ),
                         ),
                       ],
                     ),
